@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import  { useState, useEffect } from 'react';
 import { useFirebase } from './contexts/FirebaseContext';
 import { Toaster } from 'react-hot-toast';
 import { Post } from './types';
