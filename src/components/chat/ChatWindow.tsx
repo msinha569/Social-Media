@@ -1,4 +1,4 @@
-import  { useRef, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { Message } from '../../types';
 import { ChatInput } from './ChatInput';
 import { useFirebase } from '../../contexts/FirebaseContext';
@@ -19,9 +19,9 @@ export function ChatWindow({ messages }: ChatWindowProps) {
   }, [messages]);
 
   return (
-    <div className="bg-white rounded-lg shadow-md h-[calc(100vh-12rem)] flex flex-col">
-      <div className="p-6 border-b">
-        <h2 className="text-xl font-bold">Chat</h2>
+    <div className="glass-card rounded-lg h-[calc(100vh-24rem)] flex flex-col">
+      <div className="p-6 border-b border-white/20">
+        <h2 className="text-xl font-bold text-gray-800">Chat</h2>
       </div>
       <div
         ref={chatRef}
@@ -34,12 +34,12 @@ export function ChatWindow({ messages }: ChatWindowProps) {
               ${msg.user === loggedInUser ? 'items-end' : 'items-start'}`}
             style={{ animationDelay: `${index * 0.1}s` }}
           >
-            <span className="text-sm text-gray-500">{msg.user}</span>
+            <span className="text-sm text-gray-600">{msg.user}</span>
             <div
               className={`rounded-lg px-4 py-2 max-w-[80%] transform transition-all duration-200
                 ${msg.user === loggedInUser
-                  ? 'bg-blue-500 text-white'
-                  : 'bg-gray-100'}`}
+                  ? 'bg-blue-500/80 backdrop-blur-sm text-white'
+                  : 'glass-effect'}`}
             >
               {msg.message}
             </div>

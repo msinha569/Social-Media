@@ -1,3 +1,60 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .glass-effect {
+    @apply bg-white/40 backdrop-blur-md border border-white/20;
+    box-shadow: 
+      0 4px 6px -1px rgba(0, 0, 0, 0.1),
+      0 2px 4px -1px rgba(0, 0, 0, 0.06),
+      inset 0 1px 1px rgba(255, 255, 255, 0.4);
+  }
+
+  .glass-card {
+    @apply glass-effect hover:bg-white/50 transition-all duration-300;
+  }
+
+  .glass-header {
+    @apply glass-effect bg-white/60 backdrop-blur-lg;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translate(0, 0) rotate(0deg) scale(1);
+  }
+  25% {
+    transform: translate(-20px, -30px) rotate(5deg) scale(1.05);
+  }
+  50% {
+    transform: translate(20px, -15px) rotate(-5deg) scale(0.95);
+  }
+  75% {
+    transform: translate(30px, 30px) rotate(5deg) scale(1.05);
+  }
+  100% {
+    transform: translate(0, 0) rotate(0deg) scale(1);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    filter: brightness(1) blur(var(--blur-amount));
+  }
+  50% {
+    filter: brightness(1.2) blur(calc(var(--blur-amount) * 0.8));
+  }
+}
+
+@layer utilities {
+  .animate-float {
+    animation: float var(--duration, 20s) ease-in-out infinite;
+  }
+  
+  .animate-pulse-glow {
+    animation: pulse-glow 4s ease-in-out infinite;
+  }
+}
+

@@ -3,25 +3,37 @@ import { useFirebase } from './contexts/FirebaseContext';
 import { Toaster } from 'react-hot-toast';
 import { Post } from './types';
 import { AuthForm } from './components/auth/AuthForm';
-import { Header } from './components/layout/Header';
-import { CreatePost } from './components/posts/CreatePost';
-import { PostList } from './components/posts/PostList';
-import { ChatWindow } from './components/chat/ChatWindow';
+import { AnimatedBackground } from './components/background/AnimatedBackground';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import HomePage from './pages/HomePage';
+import VideoChat from './pages/VideoChat';
+import { FirebaseProvider } from './firebase';
 
 function App() {
-  const { loggedInUser, readData, handleReceiveMessage, receivedMessages } = useFirebase();
+  const { loggedInUser, readData } = useFirebase();
   const [posts, setPosts] = useState<Post[]>([]);
+
+  const appRouter = createBrowserRouter([
+    {
+      path: '/',
+      element: <HomePage posts={posts} setPosts={setPosts} />,
+    },
+    {
+      path: '/videochat',
+      element: <VideoChat/>
+    }
+  ])
 
   useEffect(() => {
     if (loggedInUser) {
       readData(setPosts);
-      handleReceiveMessage();
     }
   }, [loggedInUser]);
 
   if (!loggedInUser) {
     return (
       <>
+        <AnimatedBackground/>
         <Toaster position="top-center" />
         <AuthForm />
       </>
@@ -29,17 +41,9 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      <Toaster position="top-center" />
-      <Header />
-      <main className="max-w-7xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <div className="space-y-6">
-          <CreatePost />
-          <PostList posts={posts} setPosts={setPosts} />
-        </div>
-        <ChatWindow messages={receivedMessages} />
-      </main>
-    </div>
+    <FirebaseProvider>
+    <RouterProvider router={appRouter}/>
+    </FirebaseProvider>
   );
 }
 

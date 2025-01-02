@@ -16,6 +16,7 @@ export const signUpUser = async (email: string, password: string, username: stri
     });
     return userCredential.user;
   } catch (error: any) {
+    toast.error(error.message);
     throw new Error(error.message);
   }
 };
@@ -25,6 +26,7 @@ export const signIn = async (email: string, password: string) => {
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
     return userCredential.user;
   } catch (err: any) {
+    toast.error(err.message);
     throw new Error(err.message);
   }
 };

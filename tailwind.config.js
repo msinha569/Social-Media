@@ -1,8 +1,22 @@
-/** @type {import('tailwindcss').Config} */
-export default {
-  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+// tailwind.config.js
+module.exports = {
+  content: ['./src/**/*.{html,js,ts,jsx,tsx}'],
   theme: {
-    extend: {},
+    extend: {
+      // Additional configurations here
+    },
   },
   plugins: [],
+  extend: {
+    utilities: {
+      '.scrollbar-hide': {
+        /* Hide scrollbar for modern browsers */
+        '&::-webkit-scrollbar': {
+          display: 'none',
+        },
+        '-ms-overflow-style': 'none', /* IE and Edge */
+        'scrollbar-width': 'none', /* Firefox */
+      },
+    },
+  },
 };

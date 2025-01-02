@@ -17,10 +17,10 @@ export function PostList({ posts, setPosts }: PostListProps) {
       {posts.map((post, index) => (
         <div 
           key={post.id} 
-          className="bg-white p-6 rounded-lg shadow-md"
+          className="glass-card p-6 rounded-lg"
           style={{ animationDelay: `${index * 0.1}s` }}
         >
-          <p className="mb-4">{post.description}</p>
+          <p className="mb-4 text-gray-800">{post.description}</p>
           <div className="flex gap-4">
             <button
               onClick={() => handleLikeCount(post.likes, (count: number) => {
